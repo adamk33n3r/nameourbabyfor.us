@@ -1,0 +1,9 @@
+form(ng-submit="createCampaign()")
+  .row
+    .col-sm-6: .form-group
+      label(for="name") Name
+      input#name.form-control(ng-model="campaign.name", placeholder="Name")
+    .col-sm-6: .form-group
+      label(for="list") Name List
+      select#list.form-control(ng-model="campaign.list", ng-options="list.name group by list.group for list in nameLists")
+  button.btn.btn-primary(type="submit") Start Campaign!

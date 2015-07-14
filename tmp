@@ -1,0 +1,19 @@
+    jade: {
+      compile: {
+        options: {
+          pretty: true,
+          data: {
+            debug: false
+          }
+        },
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.client %>',
+          src: [
+            '{app,components}/**/*.jade'
+          ],
+          dest: '.tmp',
+          ext: '.html'
+        }]
+      }
+    }
