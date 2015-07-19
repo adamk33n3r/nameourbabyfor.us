@@ -2,9 +2,10 @@
 
 var _ = require('lodash');
 var Campaign = require('./campaign.model');
+var List = require('../list/list.model');
 
 // Get list of campaigns
-exports.index = function(req, res) {
+exports.index = function (req, res) {
   if (req.user === undefined)
     return res.json(404, 'No user provided');
   Campaign.find({ owned_by: req.user._id })
@@ -24,16 +25,56 @@ exports.show = function(req, res) {
   });
 };
 
+exports.getNamesToVote = function (req, res) {
+  Campaign.findById(req.params.id, function (err, campaign) {
+    if(err) { return handleError(res, err); }
+    if(!campaign) { return res.send(404); }
+    List.findById(campaign.list).select('names').exec(function (err, list) {
+      if(err) { return handleError(res, err); }
+      if(!list) { return res.send(404); }
+      var names = list.getTwoRandomNames(campaign.gender);
+      return res.json({
+        name1: names[0].name,
+        name2: names[1].name
+      });
+    });
+  });
+}
+
+exports.vote = function (req, res) {
+  var campaignID = req.params.id;
+  var name = req.body.name;
+  Campaign.findById(campaignID, function (err, campaign) {
+    if(err) { return handleError(res, err); }
+    if(!campaign) { return res.send(404); }
+    var nameToVote = campaign.votes.filter(function (vote) {
+      return vote.name === name;
+    })[0];
+    if(nameToVote) {
+      nameToVote.count++
+    } else {
+      campaign.votes.push({
+        name: name,
+        count: 1
+      });
+    }
+    campaign.save(function (err) {
+      if(err) { return handleError(res, err); }
+      return res.json({success: true});
+    });
+  });
+};
+
 // Creates a new campaign in the DB.
-exports.create = function(req, res) {
-  Campaign.create(req.body, function(err, campaign) {
+exports.create = function (req, res) {
+  Campaign.create(req.body, function (err, campaign) {
     if(err) { return handleError(res, err); }
     return res.json(201, campaign);
   });
 };
 
 // Updates an existing campaign in the DB.
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   if(req.body._id) { delete req.body._id; }
   Campaign.findById(req.params.id, function (err, campaign) {
     if (err) { return handleError(res, err); }
@@ -47,7 +88,7 @@ exports.update = function(req, res) {
 };
 
 // Deletes a campaign from the DB.
-exports.destroy = function(req, res) {
+exports.destroy = function (req, res) {
   Campaign.findById(req.params.id, function (err, campaign) {
     if(err) { return handleError(res, err); }
     if(!campaign) { return res.send(404); }
@@ -58,6 +99,6 @@ exports.destroy = function(req, res) {
   });
 };
 
-function handleError(res, err) {
+function handleError (res, err) {
   return res.send(500, err);
 }

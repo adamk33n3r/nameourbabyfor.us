@@ -6,14 +6,37 @@ var mongoose = require('mongoose'),
 var ListSchema = new Schema({
   name: String,
   group: String,
-  names: [{
-    _id: false,
-    name: String,
-    gender: {
-      type: String,
-      enum: ['male', 'female']
-    }
-  }]
+  names: { // TODO: These should probably be another model. Then I can just query two random ones instead of loading all of them
+    index: true,
+    type: [{
+      _id: false,
+      name: String,
+      count: Number,
+      rank: Number,
+      gender: {
+        type: String,
+        enum: ['male', 'female']
+      }
+    }],
+    select: false
+  }
 });
+
+ListSchema.methods = {
+  getTwoRandomNames: function(gender) {
+    var names = this.names.filter(function(name) {
+      return name.gender === gender;
+    });
+    var name1idx = Math.floor(Math.random() * names.length);
+    var name2idx = Math.floor(Math.random() * names.length);
+    while (name2idx === name1idx) { // Ensures different names
+      name2idx = Math.floor(Math.random() * names.length);
+    }
+    return [
+      names[name1idx],
+      names[name2idx]
+    ]
+  }
+}
 
 module.exports = mongoose.model('List', ListSchema);

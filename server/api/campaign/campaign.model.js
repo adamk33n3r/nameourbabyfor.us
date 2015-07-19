@@ -14,6 +14,10 @@ var CampaignSchema = new Schema({
     ref: 'List',
     required: true
   },
+  gender: {
+    type: String,
+    enum: ['male', 'female']
+  },
   owned_by: [{
     type: ForeignKey,
     ref: 'User',
@@ -28,6 +32,7 @@ var CampaignSchema = new Schema({
     default: true
   },
   votes: [{
+    _id: false,
     name: String,
     count: Number
   }]

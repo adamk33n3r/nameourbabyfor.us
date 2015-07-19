@@ -2,11 +2,12 @@
 
 angular.module 'nameourbabyforusApp'
 .controller 'SettingsCtrl', ($scope, User, Auth) ->
+  $scope.user = {}
   $scope.errors = {}
   $scope.showPass = Auth.getCurrentUser().provider is 'local'
   $scope.changePassword = (form) ->
     $scope.submitted = true
-
+    console.log $scope.user
     if form.$valid
       Auth.changePassword $scope.user.oldPassword, $scope.user.newPassword
       .then ->

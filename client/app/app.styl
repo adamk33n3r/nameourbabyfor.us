@@ -31,6 +31,33 @@
 // App-wide Styles
 //
 
+.hero-unit
+  color: #F5F5F5
+  padding: 30px 15px
+  position: relative
+  text-align: center
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1)
+
+#banner.hero-unit
+  background: #4393B9
+
+#under-dev
+  padding: 30px 15px
+  position: relative
+  text-align: center
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1)
+
+
+#banner
+  border-bottom: none
+  margin-top: -20px
+  text-shadow: 0px -1px 1px darken(#4393b9, 25%)
+
+#banner h1
+  font-size: 60px
+  letter-spacing: -1px
+  line-height: 1
+
 .browsehappy
   background: #ccc
   color: #000
@@ -43,9 +70,18 @@
 .table-responsive
   overflow-x: auto
 
+.block
+  display: block
+
+a[disabled]
+  pointer-events: none
+
+// Do these when 'mobile'
 @media (max-width: 768px)
   .navbar-text
     padding: 0 15px
+  #oauthLogins > a
+    margin-bottom: 5px
 
 @-moz-document url-prefix()
   fieldset
@@ -53,9 +89,5 @@
 
 // Component styles are injected through grunt
 // injector
-@import 'account/login/login.styl';
-@import 'admin/admin.styl';
-@import 'main/main.styl';
-@import 'routes/campaign/campaign.styl';
 @import 'modal/modal.styl';
 // endinjector

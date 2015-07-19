@@ -9,23 +9,32 @@
     ul: li(ng-repeat="owner in campaign.owned_by")
       | {{ owner.name }}
   .col-xs-4
-    | {{ campaign.list.name }}
+    | {{ campaign.gender | capitalize }} names of {{ campaign.list.name }}
 .row: .col-xs-12: h3 Stats
 .row
   .col-sm-4: .well.well-sm
     p Unique Voters:&nbsp;
-      em 5
+      em 5 need to add user to vote
     p Names Voted On:&nbsp;
-      em 845
+      em {{ campaign.votes.length }}
+    p Total Votes:&nbsp;
+      em {{ totalVotes() }}
   .col-sm-4: .well.well-sm
-    p Most Popular Name:&nbsp;
-      em Adam
-    p Least Popular Name:&nbsp;
-      em Leah
+    p Most Popular:&nbsp;
+      em {{ mostPopular().name }} ({{ mostPopular().count }})
+    p Least Popular:&nbsp;
+      em {{ leastPopular().name }} ({{ leastPopular().count }})
   .col-sm-4: .well.well-sm
     p Names Favorited:&nbsp;
       em 4
     p Names Vetoed:&nbsp;
       em 17
 .row: .col-xs-12
-  a.btn.btn-default(ui-sref="campaign.index") Back to campaigns
+  a.btn.btn-success(ui-sref="campaign.vote({ id: id })")
+    | Vote!&nbsp;
+    i.fa.fa-check
+hr
+.row: .col-xs-12
+  a.btn.btn-default(ui-sref="campaign.list")
+    i.fa.fa-chevron-left
+    |  Back to campaigns

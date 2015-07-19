@@ -10,6 +10,7 @@
     <title>NameOurBabyFor.Us</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <link href="favicon.ico" rel="icon" type="image/x-icon" />
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
@@ -22,6 +23,20 @@
     <!-- endbuild -->
   </head>
   <body ng-controller="MainController">
+    <script>
+      checkLoginState = function() {
+        FB.getLoginStatus(function(response) {
+          console.log(response);
+          if (response.status === 'connected') {
+            FB.api('/me', function(response) {
+              console.log('Successful login for: ' + response.name);
+            });
+          }
+        });
+      }
+    </script>
+    <div id="fb-root"></div>
+
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -29,6 +44,7 @@
     <!-- Add your site or application content here -->
     <div ng-controller="NavbarCtrl" ng-include='"components/navbar/navbar.html"'></div>
     <div id="content" ui-view=""></div>
+</div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
@@ -53,10 +69,11 @@
       <script src="bower_components/angular-cookies/angular-cookies.js"></script>
       <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
       <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-      <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+      <script src="bower_components/lodash/lodash.js"></script>
       <script src="bower_components/angular-socket-io/socket.js"></script>
       <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
       <script src="bower_components/angular-route-styles/ui-route-styles.js"></script>
+      <script src="bower_components/ng-facebook/ngFacebook.js"></script>
       <!-- endbower -->
       <script src="socket.io-client/socket.io.js"></script>
     <!-- endbuild -->
@@ -69,9 +86,12 @@
           <script src="app/account/settings/settings.js"></script>
           <script src="app/account/signup/signup.js"></script>
           <script src="app/admin/admin.js"></script>
+          <script src="app/directives/BSValidate/BSValidate.js"></script>
           <script src="app/main/main.js"></script>
+          <script src="app/routes/about/about.js"></script>
           <script src="app/routes/campaign/campaign.js"></script>
           <script src="app/services/Campaign/Campaign.js"></script>
+          <script src="app/services/Facebook/Facebook.js"></script>
           <script src="app/services/List/List.js"></script>
           <script src="components/auth/auth.js"></script>
           <script src="components/auth/user.js"></script>

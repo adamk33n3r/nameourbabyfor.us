@@ -1,9 +1,30 @@
-form(ng-submit="createCampaign()")
+form(ng-submit="createCampaign()", name="campaignNew")
   .row
-    .col-sm-6: .form-group
-      label(for="name") Name
-      input#name.form-control(ng-model="campaign.name", placeholder="Name")
-    .col-sm-6: .form-group
-      label(for="list") Name List
-      select#list.form-control(ng-model="campaign.list", ng-options="list.name group by list.group for list in nameLists")
-  button.btn.btn-primary(type="submit") Start Campaign!
+    .col-md-6.col-sm-12: bs:validate(on="name")
+      label.block(for="name") Name
+        span.text-success.pull-right(ng-show="isValid(campaignNew.subForm_name)") Valid
+        span.text-danger.pull-right(ng-show="isInvalid(campaignNew.subForm_name)") Invalid
+        span.pull-right {{ campaignNew.subForm_name.name.$viewValue.length }} / 40&nbsp;
+      input#name.form-control(ng-model="campaign.name", name="name", placeholder="My First Campaign", required, maxlength="40", autocomplete="off")
+    .col-md-4.col-sm-8: bs:validate(on='list')
+      label.block(for="list") Name List
+        span.text-success.pull-right(ng-show="isValid(campaignNew.subForm_list)") Valid
+        span.text-danger.pull-right(ng-show="isInvalid(campaignNew.subForm_list)") Invalid
+      select#list.form-control(ng-model="campaign.list", ng-options="list.name group by list.group for list in nameLists", name="list", required)
+        option(value="", disabled, selected, style="display: none") Please select a list...
+    .col-md-2.col-sm-4
+      label.block(for="gender") Gender
+      .btn-group
+        label.btn.btn-primary(ng-model="campaign.gender", btn-radio="'male'") Male
+        label.btn.btn-primary(ng-model="campaign.gender", btn-radio="'female'") Female
+  .row(ng-show="campaign.list.name === 'Custom'")
+    .col-sm-6.col-sm-offset-6
+      label.block Names
+      input.form-control
+      br
+      btn.btn.btn-primary
+        | Add new&nbsp;
+        i.fa.fa-plus
+  br.visible-xs-block
+  button.btn(ng-class="campaignNew.$valid ? 'btn-success' : 'btn-danger'", type="submit", ng-disabled='campaign.saving || campaignNew.$invalid') Start Campaign!
+    span(ng-show="campaignNew.$invalid")  (invalid)

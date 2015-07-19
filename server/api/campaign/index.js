@@ -8,7 +8,12 @@ var router = express.Router();
 
 router.get('/', auth.isAuthenticated(), controller.index);
 router.get('/:id', auth.isAuthenticated(), controller.show);
+
+// Voting
+router.get('/:id/get-names', auth.isAuthenticated(), controller.getNamesToVote);
 router.post('/', auth.isAuthenticated(), controller.create);
+router.post('/:id/vote', auth.isAuthenticated(), controller.vote);
+
 router.put('/:id', auth.isAuthenticated(), controller.update);
 router.patch('/:id', auth.isAuthenticated(), controller.update);
 router.delete('/:id', auth.isAuthenticated(), controller.destroy);

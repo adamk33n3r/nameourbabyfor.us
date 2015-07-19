@@ -6,6 +6,9 @@ angular.module 'nameourbabyforusApp'
     title: 'Home'
     link: '/'
   ,
+    title: 'About'
+    link: '/about'
+  ,
     title: 'Campaigns'
     link: '/campaign/list'
   ]

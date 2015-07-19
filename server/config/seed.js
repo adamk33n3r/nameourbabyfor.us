@@ -5,6 +5,10 @@
 
 'use strict';
 
+var path = require('path');
+var fs = require('q-io/fs');
+var glob = require('glob');
+var csv = require('csv-parse');
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
 var List = require('../api/list/list.model');
@@ -48,45 +52,4 @@ var userCreatePromise = User.remove().exec().then(function() {
       console.log('finished populating users');
     }
   );
-});
-
-
-var listCreatePromise = List.remove().exec().then(function() {
-  return List.create({
-    name: '2015',
-    group: 'Top Names',
-    names: [{
-      name: 'Adam',
-      gender: 'male'
-    }, {
-      name: 'Leah',
-      gender: 'female'
-    }, {
-      name: 'David',
-      gender: 'male'
-    }]
-  }, function() {
-    console.log('finished building lists');
-  });
-});
-
-Promise.all([userCreatePromise, listCreatePromise]).then(function() {
-  console.log("Users and Lists have been built...now creating Campaigns");
-  var listPromise = List.findOne({ name: '2015', group: 'Top Names' }).exec();
-  var userPromise = User.findOne({ name: 'Test User' }).exec();
-  var userPromise2 = User.findOne({ name: 'Admin' }).exec();
-  Promise.all([listPromise, userPromise, userPromise2]).then(function(data) {
-    var list = data[0];
-    var user = data[1];
-    var user2 = data[2];
-    Campaign.find({}).remove(function() {
-      Campaign.create({
-        name: "Test Campaign",
-        list: list._id,
-        owned_by: [user._id, user2._id]
-      }, function() {
-        console.log('finished building campaigns');
-      })
-    });
-  });
 });

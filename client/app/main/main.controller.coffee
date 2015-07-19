@@ -1,7 +1,8 @@
 'use strict'
 
 angular.module 'nameourbabyforusApp'
-.controller 'MainCtrl', ($scope, $http, socket) ->
+.controller 'MainCtrl', ($scope, $http, $facebook, $window, socket) ->
+  $window.FB.XFBML.parse() if $window.FB
   $scope.awesomeThings = []
 
   $http.get('/api/things').success (awesomeThings) ->

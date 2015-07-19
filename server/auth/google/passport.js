@@ -11,6 +11,7 @@ exports.setup = function (User, config) {
       User.findOne({
         'google.id': profile.id
       }, function(err, user) {
+        console.log(profile);
         if (!user) {
           user = new User({
             name: profile.displayName,

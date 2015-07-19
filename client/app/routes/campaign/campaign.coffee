@@ -6,11 +6,11 @@ angular.module 'nameourbabyforusApp'
   .state 'campaign',
     url: '/campaign'
     templateUrl: 'app/routes/campaign/views/campaign.html'
-  .state 'campaign.index',
+  .state 'campaign.list',
     url: '/list'
     views:
       "":
-        templateUrl: 'app/routes/campaign/views/campaign-index.html'
+        templateUrl: 'app/routes/campaign/views/campaign-list.html'
         controller: 'CampaignCtrl'
         css: 'app/routes/campaign/campaign.css'
   .state 'campaign.new',
@@ -25,3 +25,7 @@ angular.module 'nameourbabyforusApp'
     url: '/:id/edit'
     templateUrl: 'app/routes/campaign/views/campaign-edit.html'
     # controller: 'CampaignCtrl'
+  .state 'campaign.vote',
+    url: '/:id/vote'
+    templateUrl: 'app/routes/campaign/views/campaign-vote.html'
+    controller: 'CampaignVoteCtrl'

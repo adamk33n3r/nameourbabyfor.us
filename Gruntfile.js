@@ -537,17 +537,24 @@ module.exports = function (grunt) {
     // Compiles Stylus to CSS
     stylus: {
       server: {
+        files: [
+          //{ dest: '.tmp/app/app.css', src: 'app.styl' },
+          {
+            expand: true,
+            src: ['**/*.styl'],
+            dest: '.tmp/app/',
+            cwd: '<%= yeoman.client %>/app',
+            ext: '.css'
+          }
+        ],
         options: {
           paths: [
             '<%= yeoman.client %>/bower_components',
             '<%= yeoman.client %>/app',
-            '<%= yeoman.client %>/components'
+            '<%= yeoman.client %>/components',
           ],
           "include css": true
         },
-        files: {
-          '.tmp/app/app.css' : '<%= yeoman.client %>/app/app.styl'
-        }
       }
     },
 
@@ -589,7 +596,7 @@ module.exports = function (grunt) {
         },
         files: {
           '<%= yeoman.client %>/app/app.styl': [
-            '<%= yeoman.client %>/{app,components}/**/*.styl',
+            '<%= yeoman.client %>/components/**/*.styl',
             '!<%= yeoman.client %>/app/app.styl'
           ]
         }
@@ -624,7 +631,7 @@ module.exports = function (grunt) {
     setTimeout(function () {
       grunt.log.writeln('Done waiting!');
       done();
-    }, 1500);
+    }, 2500);
   });
 
   grunt.registerTask('express-keepalive', 'Keep grunt running', function() {

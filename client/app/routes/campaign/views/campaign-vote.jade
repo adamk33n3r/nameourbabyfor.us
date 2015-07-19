@@ -1,0 +1,15 @@
+.row
+  .col-sm-12
+    h3 Which name do you like better?
+    .btn-group
+      button.btn.btn-primary.btn-lg(ng-click="vote(names.name1)", ng-disabled="voting")
+        i.fa.fa-chevron-left
+        | &nbsp;{{ names.name1 }}
+      button.btn.btn-primary.btn-lg(ng-click="vote(names.name2)", ng-disabled="voting")
+        | {{ names.name2 }}&nbsp;
+        i.fa.fa-chevron-right
+hr
+.row: .col-xs-12
+  a.btn.btn-default(ui-sref="campaign.show({ id: campaignID })")
+    i.fa.fa-chevron-left
+    |  Back to campaign

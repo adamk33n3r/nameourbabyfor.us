@@ -2,6 +2,11 @@
 
 angular.module 'nameourbabyforusApp'
 .controller 'SignupCtrl', ($scope, Auth, $location, $window) ->
+  if $window.location.hash is '#close_window'
+    console.log 'closing window'
+    $window.close()
+  else
+    console.log 'not closing window cause hash == ' + $window.location.hash
   $scope.user = {}
   $scope.errors = {}
   $scope.register = (form) ->

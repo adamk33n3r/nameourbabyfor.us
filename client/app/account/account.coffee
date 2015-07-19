@@ -5,16 +5,25 @@ angular.module 'nameourbabyforusApp'
   $stateProvider
   .state 'login',
     url: '/login'
-    templateUrl: 'app/account/login/login.html'
-    controller: 'LoginCtrl'
+    views:
+      '':
+        templateUrl: 'app/account/login/login.html'
+        controller: 'LoginCtrl'
+        css: 'app/account/login/login.css'
 
   .state 'signup',
     url: '/signup'
-    templateUrl: 'app/account/signup/signup.html'
-    controller: 'SignupCtrl'
+    views:
+      '':
+        templateUrl: 'app/account/signup/signup.html'
+        controller: 'SignupCtrl'
+        css: 'app/account/login/login.css'
 
   .state 'settings',
     url: '/settings'
-    templateUrl: 'app/account/settings/settings.html'
-    controller: 'SettingsCtrl'
+    views:
+      '':
+        templateUrl: 'app/account/settings/settings.html'
+        controller: 'SettingsCtrl'
+        css: 'app/account/login/login.css'
     authenticate: true
