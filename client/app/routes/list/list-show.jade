@@ -1,0 +1,16 @@
+.container.panel.panel-default.panel-body
+  .row: .col-sm-6.col-sm-offset-3
+    h1 {{ list.name }}
+    table.table.table-hover
+      thead: tr
+        th Name
+        th: .pull-right Gender
+      tbody: tr(ng-repeat="name in names")
+        td {{ name.name }}
+        td: .pull-right.btn-group
+          label.btn.btn-primary(ng-click="setGender(name.name, 'male')", ng-model="name.gender", btn-radio="'male'") Male
+          label.btn.btn-primary(ng-click="setGender(name.name, 'female')", ng-model="name.gender", btn-radio="'female'") Female
+    div(style="text-align: center")
+      pagination.hidden-xs-inline-block(total-items="list.names.length", ng-model="pagination.page", ng-change="getNames()", items-per-page="pagination.itemsPerPage", max-size="pagination.maxSize", class="pagination-sm", boundary-links="true")
+      pagination.visible-xs-inline-block(total-items="list.names.length", ng-model="pagination.page", ng-change="getNames()", items-per-page="pagination.itemsPerPage", max-size="pagination.maxSizeMobile", class="pagination-sm", boundary-links="true")
+

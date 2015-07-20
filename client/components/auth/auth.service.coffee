@@ -128,6 +128,12 @@ angular.module 'nameourbabyforusApp'
   isAdmin: ->
     currentUser.role is 'admin'
 
+  isTester: ->
+    currentUser.role is 'tester'
+
+  isElevated: ->
+    @isTester() or @isAdmin()
+
 
   ###
   Get auth token

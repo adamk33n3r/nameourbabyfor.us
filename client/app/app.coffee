@@ -7,7 +7,7 @@ angular.module 'nameourbabyforusApp', [
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap',
-  'routeStyles',
+  'uiRouterStyles',
   'ngFacebook'
 ]
 .config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $facebookProvider) ->

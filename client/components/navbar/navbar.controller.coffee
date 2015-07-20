@@ -10,11 +10,13 @@ angular.module 'nameourbabyforusApp'
     link: '/about'
   ,
     title: 'Campaigns'
-    link: '/campaign/list'
+    link: '/campaigns/list'
   ]
   $scope.isCollapsed = true
   $scope.isLoggedIn = Auth.isLoggedIn
   $scope.isAdmin = Auth.isAdmin
+  $scope.isTester = Auth.isTester
+  $scope.isElevated = Auth.isElevated
   $scope.getCurrentUser = Auth.getCurrentUser
 
   $scope.logout = ->
@@ -22,7 +24,7 @@ angular.module 'nameourbabyforusApp'
     $location.path '/login'
 
   $scope.isActive = (route) ->
-    route is $location.path()
+    route.split('/')[1] is $location.path().split('/')[1]
 
   $scope.loginAsTest = ->
     Auth.login

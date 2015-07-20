@@ -1,0 +1,9 @@
+.container.panel.panel-default.panel-body
+  h1 Lists
+  table.table.table-hover
+    thead: tr
+      th Name
+      th Group
+    tbody: tr(ng-repeat="list in lists")
+      td: a.btn.btn-sm.btn-default(ui-sref="list-show({ id: list._id })") {{ list.name }}
+      td {{ list.group }}

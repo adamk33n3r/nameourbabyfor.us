@@ -5,8 +5,7 @@ angular.module 'nameourbabyforusApp'
   $stateProvider
   .state 'main',
     url: '/'
-    views:
-      '':
-        templateUrl: 'app/main/main.html'
-        controller: 'MainCtrl'
-        css: 'app/main/main.css'
+    templateUrl: 'app/main/main.html'
+    controller: 'MainCtrl'
+    data:
+      css: 'app/main/main.css'

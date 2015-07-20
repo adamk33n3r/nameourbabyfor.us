@@ -2,5 +2,15 @@
 
 angular.module 'nameourbabyforusApp'
 .factory 'List', ($resource) ->
-  $resource '/api/lists/:id',
-    id: '@_id'
+  $resource '/api/lists/:id/:action',
+    id: '@id'
+  ,
+    setGender:
+      method: 'POST'
+      params:
+        action: 'set-gender'
+    getNames:
+      method: 'GET'
+      isArray: true
+      params:
+        action: 'get-names'

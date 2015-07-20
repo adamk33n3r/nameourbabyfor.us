@@ -4,15 +4,14 @@ angular.module 'nameourbabyforusApp'
 .config ($stateProvider) ->
   $stateProvider
   .state 'campaign',
-    url: '/campaign'
+    url: '/campaigns'
     templateUrl: 'app/routes/campaign/views/campaign.html'
   .state 'campaign.list',
     url: '/list'
-    views:
-      "":
-        templateUrl: 'app/routes/campaign/views/campaign-list.html'
-        controller: 'CampaignCtrl'
-        css: 'app/routes/campaign/campaign.css'
+    templateUrl: 'app/routes/campaign/views/campaign-list.html'
+    controller: 'CampaignCtrl'
+    data:
+      css: 'app/routes/campaign/campaign.css'
   .state 'campaign.new',
     url: '/new'
     templateUrl: 'app/routes/campaign/views/campaign-new.html'

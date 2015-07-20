@@ -15,7 +15,6 @@ glob 'server/data/top/yob*.txt', (err, files) ->
   if files.length is 0
     mongoose.disconnect()
     return
-  promises = []
   listsCreated = 0
   files.forEach (filePath) ->
     fs.read(filePath).then (fileData) ->
@@ -40,7 +39,7 @@ glob 'server/data/top/yob*.txt', (err, files) ->
         year = path.basename(filePath).match(/yob(\d{4})\.txt/)[1]
         console.log "Loading year", year
         listsCreated++
-        promises.push List.create
+        List.create
           name: year
           group: 'Top Names'
           names: names
