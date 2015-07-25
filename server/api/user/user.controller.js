@@ -99,3 +99,16 @@ exports.me = function(req, res, next) {
 exports.authCallback = function(req, res, next) {
   res.redirect('/');
 };
+
+
+exports.setRole = function (req, res, next) {
+  User.findById(req.params.id, function (err, user) {
+    if (err) return next(err);
+    if (!user) return res.json(404);
+    user.role = req.body.role;
+    user.save(function(err) {
+      if (err) return res.send(500);
+      res.send(200);
+    });
+  });
+};

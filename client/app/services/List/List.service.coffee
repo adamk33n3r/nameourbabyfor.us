@@ -9,6 +9,10 @@ angular.module 'nameourbabyforusApp'
       method: 'POST'
       params:
         action: 'set-gender'
+    setEnabled:
+      method: 'POST'
+      params:
+        action: 'set-enabled'
     getNames:
       method: 'GET'
       isArray: true

@@ -7,8 +7,10 @@ angular.module 'nameourbabyforusApp', [
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap',
+  'ngAnimate',
   'uiRouterStyles',
-  'ngFacebook'
+  'ngFacebook',
+  'cfp.hotkeys'
 ]
 .config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $facebookProvider) ->
   $facebookProvider.setAppId '1420268104970270'
@@ -46,6 +48,11 @@ angular.module 'nameourbabyforusApp', [
     if input
       input = input.toLowerCase();
       return input.substring(0, 1).toUpperCase() + input.substring(1)
+
+.filter 'slice', ->
+  (arr, start, end) ->
+    return if not arr?
+    arr.slice start, end
 
 .run ($rootScope, $location, $window, Auth) ->
   # Redirect to login if route requires auth and you're not logged in

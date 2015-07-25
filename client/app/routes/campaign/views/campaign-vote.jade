@@ -1,13 +1,19 @@
+.row: .col-sm-12.text-center
+  h1 Voting for {{ campaign.owned_by[0].name }}'s baby
+hr
 .row
-  .col-sm-12
+  .col-sm-12.text-center
     h3 Which name do you like better?
     .btn-group
       button.btn.btn-primary.btn-lg(ng-click="vote(names.name1)", ng-disabled="voting")
-        i.fa.fa-chevron-left
+        i.fa.fa-arrow-left
         | &nbsp;{{ names.name1 }}
       button.btn.btn-primary.btn-lg(ng-click="vote(names.name2)", ng-disabled="voting")
         | {{ names.name2 }}&nbsp;
-        i.fa.fa-chevron-right
+        i.fa.fa-arrow-right
+.row.hidden-xs: .col-sm-12.text-center
+  em Keyboard shortcuts available. Press <kbd>?</kbd> for help.
+br
 hr
 .row: .col-xs-12
   a.btn.btn-default(ui-sref="campaign.show({ id: campaignID })")

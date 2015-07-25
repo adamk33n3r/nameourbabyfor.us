@@ -10,3 +10,9 @@ angular.module 'nameourbabyforusApp'
   $scope.delete = (user) ->
     User.remove id: user._id
     _.remove $scope.users, user
+
+  $scope.setRole = (user) ->
+    User.setRole
+      id: user._id
+    ,
+      role: user.role

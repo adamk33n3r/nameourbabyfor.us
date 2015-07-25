@@ -6,10 +6,14 @@ angular.module 'nameourbabyforusApp'
     id: '@id'
   ,
     vote:
-      method: 'POST'
+      method: 'PUT'
       params:
         action: 'vote'
     getNames:
       method: 'GET'
       params:
         action: 'get-names'
+    setState:
+      method: 'PUT'
+      params:
+        action: 'set-state'

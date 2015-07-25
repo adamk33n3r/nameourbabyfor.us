@@ -13,6 +13,7 @@ var ListSchema = new Schema({
       name: String,
       count: Number,
       rank: Number,
+      enabled: Boolean,
       gender: {
         type: String,
         enum: ['male', 'female']
@@ -24,8 +25,9 @@ var ListSchema = new Schema({
 
 ListSchema.methods = {
   getTwoRandomNames: function(gender) {
+    if (!this.names) { return false; }
     var names = this.names.filter(function(name) {
-      return name.gender === gender;
+      return name.enabled && name.gender === gender;
     });
     var name1idx = Math.floor(Math.random() * names.length);
     var name2idx = Math.floor(Math.random() * names.length);

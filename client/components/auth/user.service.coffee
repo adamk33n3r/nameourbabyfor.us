@@ -15,3 +15,8 @@ angular.module 'nameourbabyforusApp'
       params:
         id: 'me'
 
+    setRole:
+      method: 'POST'
+      params:
+        controller: 'set-role'
+

@@ -12,7 +12,8 @@ router.get('/:id', auth.isAuthenticated(), controller.show);
 // Voting
 router.get('/:id/get-names', auth.isAuthenticated(), controller.getNamesToVote);
 router.post('/', auth.isAuthenticated(), controller.create);
-router.post('/:id/vote', auth.isAuthenticated(), controller.vote);
+router.put('/:id/vote', auth.isAuthenticated(), controller.vote);
+router.put('/:id/set-state', auth.isAuthenticated(), controller.setState);
 
 router.put('/:id', auth.isAuthenticated(), controller.update);
 router.patch('/:id', auth.isAuthenticated(), controller.update);

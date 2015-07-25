@@ -1,0 +1,40 @@
+.row
+  .col-md-6
+    h3 Favorites
+    ul.well
+      li(ng-repeat="favorite in getFavorites()") {{ favorite.name }}
+  .col-md-6
+    h3 Vetoed
+    ul.well
+      li(ng-repeat="vetoedName in getVetoed()") {{ vetoedName.name }}
+.row: .col-md-12
+  #result-list.table-responsive
+    table.table.table-hover
+      thead: tr
+        th Name
+        th Votes
+        th(style="width: 210px"): .pull-right Actions
+      tbody
+        tr(ng-repeat="vote in campaign.votes | orderBy: '-count' | slice: (pagination.page-1)*pagination.itemsPerPage : pagination.page*pagination.itemsPerPage")
+          td {{ vote.name }}
+          td {{ vote.count }}
+          td: .pull-right.btn-group
+            label.btn.btn-success(style="width: 102px", ng-model="vote.state", ng-change="setState(vote)", btn-radio="'favorite'", uncheckable)
+              i.fa.fa-star
+              span(ng-hide="vote.state == 'favorite'") &nbsp;Favorite
+              span(ng-show="vote.state == 'favorite'") &nbsp;Favorited
+            label.btn.btn-danger(style="width: 90px", ng-model="vote.state", ng-change="setState(vote)", btn-radio="'veto'", uncheckable)
+              i.fa.fa-times-circle
+              span(ng-hide="vote.state == 'veto'") &nbsp;Veto
+              span(ng-show="vote.state == 'veto'") &nbsp;Vetoed
+  div(style="text-align: center")
+    .hidden-xs
+      pagination(total-items="campaign.votes.length", ng-model="pagination.page", ng-change="", items-per-page="pagination.itemsPerPage", max-size="pagination.maxSize", class="pagination-sm", boundary-links="true")
+      ul.pagination.pagination-sm
+        li: input#page-number.form-control(ng-model="pagination.page")
+        li: a(href="", ng-click="") Goto Page
+    .visible-xs-inline-block
+      .row: .col-xs-12: pagination(total-items="campaign.votes.length", ng-model="pagination.page", ng-change="", items-per-page="pagination.itemsPerPage", max-size="pagination.maxSizeMobile", class="pagination-sm", boundary-links="true", first-text="<<", last-text=">>", previous-text="<", next-text=">")
+      .row: .col-xs-12: ul.pagination.pagination-sm(style="display:inline-flex")
+        li: input#page-number.form-control(ng-model="pagination.page")
+        li: a(href="", ng-click="") Goto Page

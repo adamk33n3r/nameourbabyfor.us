@@ -13,8 +13,6 @@
 .row: .col-xs-12: h3 Stats
 .row
   .col-sm-4: .well.well-sm
-    p Unique Voters:&nbsp;
-      em 5 need to add user to vote
     p Names Voted On:&nbsp;
       em {{ campaign.votes.length }}
     p Total Votes:&nbsp;
@@ -30,9 +28,13 @@
     p Names Vetoed:&nbsp;
       em 17
 .row: .col-xs-12
-  a.btn.btn-success(ui-sref="campaign.vote({ id: id })")
-    | Vote!&nbsp;
-    i.fa.fa-check
+  .btn-group
+    a.btn.btn-success(ui-sref="campaign.vote({ id: id })")
+      | Vote!&nbsp;
+      i.fa.fa-check
+    a.btn.btn-primary(ui-sref="campaign.results({ id: id})")
+      | View results&nbsp;
+      i.fa.fa-table
 hr
 .row: .col-xs-12
   a.btn.btn-default(ui-sref="campaign.list")

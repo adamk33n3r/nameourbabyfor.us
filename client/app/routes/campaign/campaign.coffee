@@ -9,22 +9,26 @@ angular.module 'nameourbabyforusApp'
   .state 'campaign.list',
     url: '/list'
     templateUrl: 'app/routes/campaign/views/campaign-list.html'
-    controller: 'CampaignCtrl'
+    controller: 'CampaignListController'
     data:
       css: 'app/routes/campaign/campaign.css'
   .state 'campaign.new',
     url: '/new'
     templateUrl: 'app/routes/campaign/views/campaign-new.html'
-    controller: 'CampaignNewCtrl'
+    controller: 'CampaignNewController'
   .state 'campaign.show',
     url: '/:id'
     templateUrl: 'app/routes/campaign/views/campaign-show.html'
-    controller: 'CampaignShowCtrl'
+    controller: 'CampaignShowController'
   .state 'campaign.edit',
     url: '/:id/edit'
     templateUrl: 'app/routes/campaign/views/campaign-edit.html'
-    # controller: 'CampaignCtrl'
+    # controller: 'CampaignController'
   .state 'campaign.vote',
     url: '/:id/vote'
     templateUrl: 'app/routes/campaign/views/campaign-vote.html'
-    controller: 'CampaignVoteCtrl'
+    controller: 'CampaignVoteController'
+  .state 'campaign.results',
+    url: '/:id/results'
+    templateUrl: 'app/routes/campaign/views/campaign-results.html'
+    controller: 'CampaignResultsController'

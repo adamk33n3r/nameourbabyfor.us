@@ -77,13 +77,31 @@ exports.setGender = function(req, res) {
   });
 };
 
+exports.setEnabled = function(req, res) {
+  List.findById(req.params.id).select('names').exec(function (err, list) {
+    if(err) { return handleError(res, err); }
+    if(!list) { return res.send(404); }
+    var nameToChange = list.names.filter(function (name) {
+      return name.name === req.body.name;
+    })[0];
+    if (nameToChange) {
+      nameToChange.enabled = req.body.enabled;
+      list.save(function (err) {
+        if(err) { return handleError(res, err); }
+        return res.json({success: true});
+      });
+    } else {
+      return res.send(404);
+    }
+  });
+}
+
 exports.getNames = function(req, res) {
   List.findById(req.params.id).select('names').exec(function (err, list) {
     if(err) { return handleError(res, err); }
     if(!list) { return res.send(404); }
     var from = req.query.from;
     var to = req.query.to;
-    console.log(from, to);
     return res.json(list.names.slice(from, to));
   });
 };

@@ -50,6 +50,5 @@ var userCreatePromise = User.remove().exec().then(function() {
     password: 'admin'
   }, function() {
       console.log('finished populating users');
-    }
-  );
+  });
 });

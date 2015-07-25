@@ -25,6 +25,45 @@ exports.show = function(req, res) {
   });
 };
 
+// Creates a new campaign in the DB.
+exports.create = function (req, res) {
+  Campaign.create(req.body, function (err, campaign) {
+    if(err) { return handleError(res, err); }
+    return res.json(201, campaign);
+  });
+};
+
+// Updates an existing campaign in the DB.
+exports.update = function (req, res) {
+  if(req.body._id) { delete req.body._id; }
+  Campaign.findById(req.params.id, function (err, campaign) {
+    if (err) { return handleError(res, err); }
+    if(!campaign) { return res.send(404); }
+    var updated = _.merge(campaign, req.body);
+    updated.save(function (err) {
+      if (err) { return handleError(res, err); }
+      return res.json(200, campaign);
+    });
+  });
+};
+
+// Deletes a campaign from the DB.
+exports.destroy = function (req, res) {
+  Campaign.findById(req.params.id, function (err, campaign) {
+    if(err) { return handleError(res, err); }
+    if(!campaign) { return res.send(404); }
+    campaign.remove(function(err) {
+      if(err) { return handleError(res, err); }
+      return res.send(204);
+    });
+  });
+};
+
+function handleError (res, err) {
+  return res.send(500, err);
+}
+
+// Custom
 exports.getNamesToVote = function (req, res) {
   Campaign.findById(req.params.id, function (err, campaign) {
     if(err) { return handleError(res, err); }
@@ -65,40 +104,24 @@ exports.vote = function (req, res) {
   });
 };
 
-// Creates a new campaign in the DB.
-exports.create = function (req, res) {
-  Campaign.create(req.body, function (err, campaign) {
-    if(err) { return handleError(res, err); }
-    return res.json(201, campaign);
-  });
-};
-
-// Updates an existing campaign in the DB.
-exports.update = function (req, res) {
-  if(req.body._id) { delete req.body._id; }
-  Campaign.findById(req.params.id, function (err, campaign) {
-    if (err) { return handleError(res, err); }
-    if(!campaign) { return res.send(404); }
-    var updated = _.merge(campaign, req.body);
-    updated.save(function (err) {
-      if (err) { return handleError(res, err); }
-      return res.json(200, campaign);
-    });
-  });
-};
-
-// Deletes a campaign from the DB.
-exports.destroy = function (req, res) {
-  Campaign.findById(req.params.id, function (err, campaign) {
+exports.setState = function(req, res) {
+  var campaignID = req.params.id;
+  var name = req.body.name;
+  var state = req.body.state;
+  Campaign.findById(campaignID, function (err, campaign) {
     if(err) { return handleError(res, err); }
     if(!campaign) { return res.send(404); }
-    campaign.remove(function(err) {
+    var nameToSet = campaign.votes.filter(function (vote) {
+      return vote.name === name;
+    })[0];
+    if (nameToSet) {
+      nameToSet.state = state;
+    } else {
+      return res.send(404);
+    }
+    campaign.save(function(err){
       if(err) { return handleError(res, err); }
-      return res.send(204);
+      return res.json({success: true});
     });
   });
 };
-
-function handleError (res, err) {
-  return res.send(500, err);
-}

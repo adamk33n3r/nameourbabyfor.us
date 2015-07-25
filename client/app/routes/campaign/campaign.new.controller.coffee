@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'nameourbabyforusApp'
-.controller 'CampaignNewCtrl', ($scope, $state, Auth, Campaign, List) ->
+.controller 'CampaignNewController', ($scope, $state, Auth, Campaign, List) ->
   $scope.nameLists = [
     #name: "Custom"
   ]

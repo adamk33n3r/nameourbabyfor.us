@@ -11,6 +11,7 @@ router.post('/', controller.create);
 
 router.get('/:id/get-names', controller.getNames);
 router.post('/:id/set-gender', controller.setGender);
+router.post('/:id/set-enabled', controller.setEnabled);
 
 router.put('/:id', controller.update);
 router.patch('/:id', controller.update);

@@ -17,7 +17,9 @@
     "angular-ui-router": "~0.2.10",
     "ngFacebook": "https://github.com/GoDisco/ngFacebook",
     "ng-facebook": "https://github.com/GoDisco/ngFacebook.git#~0.1.6",
-    "angular-ui-router-styles": "~0.0.6"
+    "angular-ui-router-styles": "~0.0.6",
+    "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.4.5",
+    "angular-animate": "~1.4.3"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

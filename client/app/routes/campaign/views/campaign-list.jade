@@ -12,7 +12,6 @@
             td: a.btn.btn-sm.btn-default(ui-sref="campaign.show({ id: '{{ campaign._id }}' })") {{ campaign.name }}
             td {{ campaign.list.name }}
             td {{ campaign.created_at.toDateString() }}
-            //-td: a.btn.btn-sm.btn-default.pull-right(ui-sref="campaign.show({ id: '{{ campaign._id }}' })") View
   p(ng-if="campaigns.length == 0") You have no campaigns
 .row: .col-xs-12
   button.btn.btn-primary(ui-sref="campaign.new") Create New Campaign!

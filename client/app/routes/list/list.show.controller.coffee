@@ -28,9 +28,16 @@ angular.module 'nameourbabyforusApp'
 
   $scope.getNames()
 
-  $scope.setGender = (name, gender) ->
+  $scope.setGender = (name) ->
     List.setGender
       id: $stateParams.id
     ,
-      name: name
-      gender: gender
+      name: name.name
+      gender: name.gender
+
+  $scope.setEnabled = (name) ->
+    List.setEnabled
+      id: $stateParams.id
+    ,
+      name: name.name
+      enabled: name.enabled

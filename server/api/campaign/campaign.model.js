@@ -34,7 +34,8 @@ var CampaignSchema = new Schema({
   votes: [{
     _id: false,
     name: String,
-    count: Number
+    count: Number,
+    state: String
   }]
 });
 
