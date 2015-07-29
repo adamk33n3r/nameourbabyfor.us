@@ -11,7 +11,6 @@ angular.module 'nameourbabyforusApp'
     maxSizeMobile: 3
   }
 
-
   Campaign.get
     id: $stateParams.id
   .$promise.then (campaign) ->

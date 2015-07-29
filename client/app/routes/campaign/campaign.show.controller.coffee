@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'nameourbabyforusApp'
-.controller 'CampaignShowController', ($scope, $stateParams, Campaign, List) ->
+.controller 'CampaignShowController', ($scope, $stateParams, $modal, Campaign, List) ->
   $scope.id = $stateParams.id
   $scope.campaign = Campaign.get
     id: $stateParams.id
@@ -34,4 +34,27 @@ angular.module 'nameourbabyforusApp'
         return if prev.count? then prev.count + next.count else prev + next.count
     else
       return 0
+
+  $scope.addOwner = ->
+    $modal.open
+      animation: true
+      templateUrl: 'modal.html'
+      controller: 'CampaignAddOwnerController'
+      resolve:
+        items: ->
+          [1,2,3,5]
+    .result.then (users) ->
+      console.log users
+    , ->
+      console.log "dismissed"
+
+
+.controller 'CampaignAddOwnerController', ($scope, $modalInstance, Campaign) ->
+  $scope.users = [
+    user_id: null
+  ]
+  $scope.add = ->
+    $modalInstance.close 4
+  $scope.cancel = ->
+    $modalInstance.dismiss 'cancel'
 

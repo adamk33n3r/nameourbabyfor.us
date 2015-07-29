@@ -25,10 +25,3 @@ angular.module 'nameourbabyforusApp'
 
   $scope.isActive = (route) ->
     route.split('/')[1] is $location.path().split('/')[1]
-
-  $scope.loginAsTest = ->
-    Auth.login
-      email: 'test@test.com'
-      password: 'test'
-    .then ->
-      $location.path '/campaign/list'

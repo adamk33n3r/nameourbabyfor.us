@@ -1,42 +1,58 @@
 .row
-  .col-xs-4: h4 Name
-  .col-xs-4: h4 Owners
-  .col-xs-4: h4 List Used
+  .col-xs-4: .panel.panel-default
+    .panel-heading: h4.panel-title Name
+    .panel-body {{ campaign.name }}
+  .col-xs-4: .panel.panel-default
+    .panel-heading
+      h4.panel-title Owners
+      a.btn.btn-primary.btn-xs.pull-right(ng-click="addOwner()")
+        span.fa.fa-plus
+        | &nbsp;Add Owner
+    .panel-body
+      ul.list-group
+        li.list-group-item(ng-repeat="owner in campaign.owned_by") {{ owner.name }}
+  .col-xs-4: .panel.panel-default
+    .panel-heading: h4.panel-title List Used
+    .panel-body {{ campaign.gender | capitalize }} names of {{ campaign.list.name }}
 .row
-  .col-xs-4
-    | {{ campaign.name }}
-  .col-xs-4
-    ul: li(ng-repeat="owner in campaign.owned_by")
-      | {{ owner.name }}
-  .col-xs-4
-    | {{ campaign.gender | capitalize }} names of {{ campaign.list.name }}
-.row: .col-xs-12: h3 Stats
-.row
-  .col-sm-4: .well.well-sm
-    p Names Voted On:&nbsp;
-      em {{ campaign.votes.length }}
-    p Total Votes:&nbsp;
-      em {{ totalVotes() }}
-  .col-sm-4: .well.well-sm
-    p Most Popular:&nbsp;
-      em {{ mostPopular().name }} ({{ mostPopular().count }})
-    p Least Popular:&nbsp;
-      em {{ leastPopular().name }} ({{ leastPopular().count }})
-  .col-sm-4: .well.well-sm
-    p Names Favorited:&nbsp;
-      em 4
-    p Names Vetoed:&nbsp;
-      em 17
+  .col-xs-12: .panel.panel-default
+    .panel-heading: h4.panel-title Stats
+    .panel-body
+      .row
+        .col-sm-4: ul.list-group
+          li.list-group-item Names Voted On:&nbsp;
+            em {{ campaign.votes.length }}
+          li.list-group-item Total Votes:&nbsp;
+            em {{ totalVotes() }}
+        .col-sm-4: ul.list-group
+          li.list-group-item Most Popular:&nbsp;
+            em {{ mostPopular().name }} ({{ mostPopular().count }})
+          li.list-group-item Least Popular:&nbsp;
+            em {{ leastPopular().name }} ({{ leastPopular().count }})
+        .col-sm-4: ul.list-group
+          li.list-group-item Names Favorited:&nbsp;
+            em ~
+          li.list-group-item Names Vetoed:&nbsp;
+            em ~
 .row: .col-xs-12
   .btn-group
     a.btn.btn-success(ui-sref="campaign.vote({ id: id })")
-      | Vote!&nbsp;
       i.fa.fa-check
+      | &nbsp;Vote!
     a.btn.btn-primary(ui-sref="campaign.results({ id: id})")
-      | View results&nbsp;
       i.fa.fa-table
+      | &nbsp;View results
 hr
 .row: .col-xs-12
   a.btn.btn-default(ui-sref="campaign.list")
     i.fa.fa-chevron-left
     |  Back to campaigns
+
+script(type="text/ng-template", id="modal.html")
+  .modal-header
+    h3.modal-title I'm a modal
+  .modal-body
+    ul: li(ng-repeat="user in users")
+      input.form-control
+  .modal-footer
+    button.btn.btn-primary(ng-click="add()") Add

@@ -9,7 +9,7 @@
           br
           span.text-muted {{user.email}}
         .col-md-6
-          a.trash.pull-right(ng-click='delete(user)', style="margin-top: 6px")
+          a.trash.pull-right(href="", ng-click='delete(user)', style="margin-top: 6px")
             span.glyphicon.glyphicon-trash
           .pull-right.btn-group(style="padding-right: 15px")
             label.btn.btn-sm.btn-primary(ng-change="setRole(user, 'user')", ng-model="user.role", btn-radio="'user'") User

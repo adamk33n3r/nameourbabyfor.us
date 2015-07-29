@@ -1,5 +1,6 @@
 @import "font-awesome/css/font-awesome.css"
-@import "bootstrap/dist/css/bootstrap.css"
+// @import "bootstrap/dist/css/bootstrap.css"
+// @import "bootstrap/dist/css/bootstrap-theme.css"
 
 //
 // Bootstrap Fonts
@@ -30,6 +31,15 @@
 //
 // App-wide Styles
 //
+
+#content
+  margin-bottom: 50px
+
+.footer
+    border-top 1px solid #E5E5E5
+    margin-top 30px
+    padding 20px 0
+    text-align center
 
 .hero-unit
   color: #F5F5F5
@@ -98,6 +108,59 @@ a[disabled]
 
 .hidden-xs #page-number
   margin-left: 15px
+
+panel-title(fs)
+  font-size: fs
+  display: inline
+
+.panel-title
+  h1&, .h1&
+    panel-title(36px)
+  h2&, .h2&
+    panel-title(30px)
+  h3&, .h3&
+    panel-title(24px)
+  h4&, .h4&
+    panel-title(18px)
+  h5&, .h5&
+    panel-title(14px)
+  h6&, .h6&
+    panel-title(12px)
+
+back-border(bg)
+  background: bg
+  border-color: darken(bg, 5%)
+  color: #fff
+
+$brand-primary = darken(#428bca, 6.5%) // #337ab7
+$brand-success = #5cb85c
+$brand-info    = #5bc0de
+$brand-warning = #f0ad4e
+$brand-danger  = #d9534f
+
+
+ul.list-group-hover
+  > li.list-group-item
+    transition: all 0.2s
+  > li.list-group-item:hover
+    background-color: #f5f5f5
+
+.close
+  color: #222222
+
+/*
+.panel-heading
+  .panel-primary > &
+    back-border($brand-primary)
+  .panel-success > &
+    back-border($brand-success)
+  .panel-info > &
+    back-border($brand-info)
+  .panel-warning > &
+    back-border($brand-warning)
+  .panel-danger > &
+    back-border($brand-danger)
+*/
 
 // Component styles are injected through grunt
 // injector

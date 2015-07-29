@@ -1,40 +1,52 @@
 .row
-  .col-md-6
-    h3 Favorites
-    ul.well
-      li(ng-repeat="favorite in getFavorites()") {{ favorite.name }}
-  .col-md-6
-    h3 Vetoed
-    ul.well
-      li(ng-repeat="vetoedName in getVetoed()") {{ vetoedName.name }}
-.row: .col-md-12
+  .col-md-6: .panel.panel-success
+    .panel-heading: h3.panel-title Favorites
+    ul.list-group.list-group-hover
+      li.list-group-item(ng-repeat="favorite in getFavorites() | orderBy: '-count'")
+        | {{ favorite.name }}
+        button.close(ng-click="favorite.state = null; setState(favorite)") &nbsp;&times;
+        span.badge {{ favorite.count }}
+      li.list-group-item(ng-if="getFavorites().length == 0") You don't currently have any names favorited.
+  .col-md-6: .panel.panel-danger
+    .panel-heading: h3.panel-title Vetoed
+    ul.list-group.list-group-hover
+      li.list-group-item(ng-repeat="vetoedName in getVetoed() | orderBy: '-count'") {{ vetoedName.name }}
+        button.close(ng-click="vetoedName.state = null; setState(vetoedName)") &nbsp;&times;
+      li.list-group-item(ng-if="getVetoed().length == 0") You don't currently have any names vetoed.
+.row: .col-md-12: .panel.panel-default
+  .panel-heading: h3.panel-title Results
   #result-list.table-responsive
     table.table.table-hover
       thead: tr
         th Name
         th Votes
-        th(style="width: 210px"): .pull-right Actions
+        th(style="width: 229px"): .pull-right Actions
       tbody
         tr(ng-repeat="vote in campaign.votes | orderBy: '-count' | slice: (pagination.page-1)*pagination.itemsPerPage : pagination.page*pagination.itemsPerPage")
           td {{ vote.name }}
           td {{ vote.count }}
           td: .pull-right.btn-group
-            label.btn.btn-success(style="width: 102px", ng-model="vote.state", ng-change="setState(vote)", btn-radio="'favorite'", uncheckable)
+            label.btn.btn-success(style="width: 116px", ng-model="vote.state", ng-change="setState(vote)", btn-radio="'favorite'", uncheckable)
               i.fa.fa-star
               span(ng-hide="vote.state == 'favorite'") &nbsp;Favorite
               span(ng-show="vote.state == 'favorite'") &nbsp;Favorited
-            label.btn.btn-danger(style="width: 90px", ng-model="vote.state", ng-change="setState(vote)", btn-radio="'veto'", uncheckable)
+            label.btn.btn-danger(style="width: 97px", ng-model="vote.state", ng-change="setState(vote)", btn-radio="'veto'", uncheckable)
               i.fa.fa-times-circle
               span(ng-hide="vote.state == 'veto'") &nbsp;Veto
               span(ng-show="vote.state == 'veto'") &nbsp;Vetoed
-  div(style="text-align: center")
+  #table-pagination(style="text-align: center")
     .hidden-xs
-      pagination(total-items="campaign.votes.length", ng-model="pagination.page", ng-change="", items-per-page="pagination.itemsPerPage", max-size="pagination.maxSize", class="pagination-sm", boundary-links="true")
+      pagination(total-items="campaign.votes.length", ng-model="pagination.page", items-per-page="pagination.itemsPerPage", max-size="pagination.maxSize", class="pagination-sm", boundary-links="true")
       ul.pagination.pagination-sm
         li: input#page-number.form-control(ng-model="pagination.page")
         li: a(href="", ng-click="") Goto Page
     .visible-xs-inline-block
-      .row: .col-xs-12: pagination(total-items="campaign.votes.length", ng-model="pagination.page", ng-change="", items-per-page="pagination.itemsPerPage", max-size="pagination.maxSizeMobile", class="pagination-sm", boundary-links="true", first-text="<<", last-text=">>", previous-text="<", next-text=">")
+      .row: .col-xs-12: pagination(total-items="campaign.votes.length", ng-model="pagination.page", items-per-page="pagination.itemsPerPage", max-size="pagination.maxSizeMobile", class="pagination-sm", boundary-links="true", first-text="<<", last-text=">>", previous-text="<", next-text=">")
       .row: .col-xs-12: ul.pagination.pagination-sm(style="display:inline-flex")
         li: input#page-number.form-control(ng-model="pagination.page")
-        li: a(href="", ng-click="") Goto Page
+        li:  a(href="", ng-click="") Goto Page
+hr
+.row: col-xs-12
+  a.btn.btn-default(ui-sref="campaign.show({ id: id })")
+    i.fa.fa-chevron-left
+    |  Back to campaign

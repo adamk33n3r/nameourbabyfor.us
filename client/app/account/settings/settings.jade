@@ -3,6 +3,9 @@
     .col-sm-12
       h1 Settings
       .col-sm-12
+        h2 Change Theme
+        select(ng-model="settings.selectedTheme", ng-change="setTheme(settings.selectedTheme)", ng-options="theme.name for theme in settings.themes")
+      .col-sm-12
         h2 Change Password
       #change-pass.col-sm-12(ng-if="showPass")
         form.form(name='form', ng-submit='changePassword(form)', novalidate='')

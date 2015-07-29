@@ -26,6 +26,7 @@ angular.module 'nameourbabyforusApp', [
 
 .controller 'MainController', ($rootScope) ->
   console.log "Booting app"
+  $rootScope.settings = {}
 
 .factory 'authInterceptor', ($rootScope, $q, $cookieStore, $location) ->
   # Add authorization token to headers
