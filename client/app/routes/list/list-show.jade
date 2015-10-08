@@ -6,7 +6,7 @@
         th Name
         th: .pull-right Gender
         th: .pull-right Enabled
-      tbody: tr(ng-repeat="name in names")
+      tbody: tr(ng-repeat="name in names", style="transition: 0s none")
         td {{ name.name }}
         td: .pull-right.btn-group
           label.btn.btn-primary(ng-change="setGender(name)", ng-model="name.gender", btn-radio="'male'") Male

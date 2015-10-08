@@ -20,6 +20,7 @@ angular.module 'nameourbabyforusApp'
     .success (data) ->
       $cookieStore.put 'token', data.token
       currentUser = User.get()
+      console.log currentUser
       deferred.resolve data
       callback?()
 
