@@ -20,7 +20,7 @@ angular.module 'nameourbabyforusApp'
 
   bsCSS = $('link#bootstrap')
   if not $rootScope.settings.gotThemes
-    $.get 'http://api.bootswatch.com/3/', (data) ->
+    $.get 'https://bootswatch.com/api/3.json', (data) ->
       $rootScope.$apply ->
         $rootScope.settings.gotThemes = true
         $rootScope.settings.themes = [
@@ -31,7 +31,7 @@ angular.module 'nameourbabyforusApp'
           elem.name is 'Paper'
         )[0]
   $scope.setTheme = (to) ->
-    console.log "Changing theme to #{to}"
+    console.log "Changing theme to #{to.name}"
     bsCSS.attr 'href', to.cssCdn
     return
 
